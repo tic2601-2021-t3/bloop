@@ -27,8 +27,8 @@ As such, in app.use(express.json()), the middleware function is mounted to the r
 */
 
 // starts an HTTP server listening on port 3000, and logs a message to the console to indicate that the server has started.
-app.listen(3000, () => { 
-    console.log(`Server Started at ${3000}`) 
+app.listen(3001, () => { 
+    console.log(`Server Started at ${3001}`) 
 })
 
 const mongoose = require('mongoose');
@@ -48,3 +48,9 @@ const routes = require('./routes/routes');
 app.use('/api', routes) 
 /* In the case of app.use('/api', routes), the function routes is added as middleware to the application, 
    and is executed on all incoming requests to URLs that begin with the /api path prefix */
+
+const path = require('path');
+app.use(express.static(path.resolve(__dirname, '../spa/build')));
+app.get("/api", (req, res) => {
+    res.json({ message: "Hello from server!" });
+  });
