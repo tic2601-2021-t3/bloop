@@ -17,7 +17,6 @@ const [backendData, setBackendData] = useState([{}])
 
   const getAll = async () => {
     const data = await axios.get("/api/getAll")
-      // console.log(data.data)
       if (backendData !== undefined){
         setBackendData(data.data)
       }

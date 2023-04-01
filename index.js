@@ -46,8 +46,10 @@ database.once('connected', () => {
 
 const routes = require('./routes/routes');
 app.use('/api', routes) 
-/* In the case of app.use('/api', routes), the function routes is added as middleware to the application, 
-   and is executed on all incoming requests to URLs that begin with the /api path prefix */
+/* 
+In the case of app.use('/api', routes), the function routes is added as middleware to the application, 
+and is executed on all incoming requests to URLs that begin with the /api path prefix 
+*/
 
 const path = require('path');
 app.use(express.static(path.resolve(__dirname, '../spa/build')));
@@ -60,4 +62,4 @@ The path.resolve() method joins the __dirname value with the ../spa/build path t
 
 app.get("/api", (req, res) => {
     res.json({ message: "Hello from server!" });
-  });
+});

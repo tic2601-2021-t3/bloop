@@ -65,24 +65,13 @@ describe("🧙 🪄 Test Collection: Testing APIs that do not do anything 🪄 �
   
 });
 
-/*
-// clean database before we start the test
-before((done) => {
-  Model.deleteMany({}, function(err) {}); // To delete all documents in a collection, pass in an empty document ({ }).
-});
-
-// clean database after the test
-after((done) => {
-  Model.deleteMany({}, function(err) {}); // To delete all documents in a collection, pass in an empty document ({ }).
-});
-*/
-
 describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB database 🪄 🧙", () => {
+  var id;
   it('🧹 🧹 🧹 Test 1: Post data', (done) => {
     const data = new Model({
       food: "Coke",
       qty: 1
-  })
+    })
     chai.request(app)
     .post('/api/post') 
     .send(data)
@@ -91,6 +80,9 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
       res.body.should.be.a('object');
       res.body.should.have.property('food').eq("Coke");
       res.body.should.have.property('qty').eq(1);
+      if (res.body.data){
+        id = res.body.data._id;
+      }
       done(); 
     });
   });
@@ -112,20 +104,20 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
   });
 
   it('🧹 🧹 🧹 Test 3: Get data', (done) => {
-    const id = "642084cf3582ea52613fd75e";
+    const id = "64281e4196f22c655ab6facf";
     chai.request(app)
     .get("/api/get/" + id) 
     .end((err, res) =>{
       res.should.have.status(200);
       //res.body.should.be.a('object');
-      res.body.should.have.property('food').eq("CokeZero");
-      res.body.should.have.property('qty').eq(2);
+      res.body.should.have.property('food').eq("Strawberry Drink");
+      res.body.should.have.property('qty').eq(5);
       done(); 
     });
   });
 
-  it('🧹 🧹 🧹 Test 3: Delete data', (done) => {
-    const id = "642084cf3582ea52613fd75e";
+  it('🧹 🧹 🧹 Test 4: Delete data', (done) => {
+    const id = "6428099fd1948c4b33568328";
     chai.request(app)
     .delete("/api/delete/" + id) 
     .end((err, res) =>{
