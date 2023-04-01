@@ -91,6 +91,7 @@ router.put('/put/:id', async (req, res) => {
         res.status(200).send(`Your entry has been updated 🔮`)
     }
     catch (error) {
+        //res.send({message: error.message}) 
         res.status(500).send({message: error.message}) 
     }
 })

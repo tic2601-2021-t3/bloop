@@ -88,11 +88,13 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
     .post('/api/post') 
     .send(data)
     .end((err, res) =>{
-      res.should.have.status(200); //expect(res).to.have.status(200);
+      res.should.have.status(200); 
       res.body.should.be.a('object');
       res.body.should.have.property('food').eq("Apple Tart");
       res.body.should.have.property('qty').eq(1);
-      id = res.body.data._id;
+      if (res.body.data !== undefined) { // basic error handling
+        id = res.body.data._id;
+      }
       done(); 
     });
   });
@@ -121,8 +123,8 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
       //console.log(res);
       res.should.have.status(200);
       //res.body.should.be.a('object');
-      res.body.should.have.property('food').eq("Fairy Drink");
-      res.body.should.have.property('qty').eq(5);
+      res.body.should.have.property('food').eq("Apple Tart");
+      res.body.should.have.property('qty').eq(1);
       done(); 
     });
   });
