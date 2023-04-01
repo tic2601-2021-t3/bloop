@@ -78,9 +78,10 @@ after((done) => {
 */
 
 describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB database 🪄 🧙", () => {
+  var id;
   it('🧹 🧹 🧹 Test 1: Post data', (done) => {
     const data = new Model({
-      food: "Coke",
+      food: "Apple Tart",
       qty: 1
   })
     chai.request(app)
@@ -89,16 +90,17 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
     .end((err, res) =>{
       res.should.have.status(200); //expect(res).to.have.status(200);
       res.body.should.be.a('object');
-      res.body.should.have.property('food').eq("Coke");
+      res.body.should.have.property('food').eq("Apple Tart");
       res.body.should.have.property('qty').eq(1);
+      id = res.body.data._id;
       done(); 
     });
   });
 
   it('🧹 🧹 🧹 Test 2: Put data', (done) => {
-    const id = "642084cf3582ea52613fd75e";
+    //const id = "6427bf2085a29797850b5480";
     const data = new Model({
-      food: "CokeZero",
+      food: "Banana cumble pie",
       qty: 2
     })
     chai.request(app)
@@ -112,20 +114,21 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
   });
 
   it('🧹 🧹 🧹 Test 3: Get data', (done) => {
-    const id = "642084cf3582ea52613fd75e";
+    //const id = "6427dccca37d9bf07fb6f4b9";
     chai.request(app)
     .get("/api/get/" + id) 
     .end((err, res) =>{
+      //console.log(res);
       res.should.have.status(200);
       //res.body.should.be.a('object');
-      res.body.should.have.property('food').eq("CokeZero");
-      res.body.should.have.property('qty').eq(2);
+      res.body.should.have.property('food').eq("Fairy Drink");
+      res.body.should.have.property('qty').eq(5);
       done(); 
     });
   });
 
-  it('🧹 🧹 🧹 Test 3: Delete data', (done) => {
-    const id = "642084cf3582ea52613fd75e";
+  it('🧹 🧹 🧹 Test 4: Delete data', (done) => {
+    //const id = "64208da9a33e8fca07677592";
     chai.request(app)
     .delete("/api/delete/" + id) 
     .end((err, res) =>{
