@@ -26,7 +26,7 @@ Note: When the middleware function is mounted with no specific path argument, it
 As such, in app.use(express.json()), the middleware function is mounted to the root path.
 */
 
-// starts an HTTP server listening on port 3000, and logs a message to the console to indicate that the server has started.
+// starts an HTTP server listening on port 5000, and logs a message to the console to indicate that the server has started.
 app.listen(3001, () => { 
     console.log(`Server Started at ${3001}`) 
 })
@@ -51,6 +51,13 @@ app.use('/api', routes)
 
 const path = require('path');
 app.use(express.static(path.resolve(__dirname, '../spa/build')));
+/*
+The express.static() middleware function is designed to serve static files such as HTML, CSS, images, and JavaScript files.
+The path.resolve(__dirname, '../spa/build') expression resolves the absolute path to the directory that contains the static files that should be served. 
+__dirname is a special Node.js variable that refers to the directory where the currently executing script is located. 
+The path.resolve() method joins the __dirname value with the ../spa/build path to create an absolute path to the directory containing the static files.
+*/
+
 app.get("/api", (req, res) => {
     res.json({ message: "Hello from server!" });
   });
