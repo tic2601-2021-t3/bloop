@@ -69,7 +69,7 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
   var id;
   it('🧹 🧹 🧹 Test 1: Post data', (done) => {
     const data = new Model({
-      food: "Apple Tart",
+      food: "Narnia Land Sprinkles",
       qty: 1
     })
     chai.request(app)
@@ -78,7 +78,7 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
     .end((err, res) =>{
       res.should.have.status(200); 
       res.body.should.be.a('object');
-      res.body.should.have.property('food').eq("Apple Tart");
+      res.body.should.have.property('food').eq("Narnia Land Sprinkles");
       res.body.should.have.property('qty').eq(1);
       id = res.body._id;
       done(); 
@@ -88,7 +88,7 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
   it('🧹 🧹 🧹 Test 2: Put data', (done) => {
     //const id = "6427bf2085a29797850b5480";
     const data = new Model({
-      food: "Banana cumble pie",
+      food: "Fairy Land Sprinkles",
       qty: 2
     })
     chai.request(app)
@@ -108,7 +108,7 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
     .end((err, res) =>{
       //console.log(res);
       res.should.have.status(200);
-      res.body.should.have.property('food').eq("Banana cumble pie");
+      res.body.should.have.property('food').eq("Fairy Land Sprinkles");
       res.body.should.have.property('qty').eq(2);
       done(); 
     });
