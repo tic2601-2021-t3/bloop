@@ -94,7 +94,7 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
     .put("/api/put/" + id) 
     .send(data)
     .end((err, res) =>{
-      //res.should.have.status(200);
+      res.should.have.status(200);
       res.text.should.be.eq("Your entry has been updated 🔮");
       done(); 
     });
@@ -104,7 +104,7 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
     chai.request(app)
     .get("/api/get/" + id) 
     .end((err, res) =>{
-      //res.should.have.status(200);
+      res.should.have.status(200);
       res.body.should.have.property('food').eq("Fairy Land Sprinkles");
       res.body.should.have.property('qty').eq(2);
       done(); 
@@ -115,7 +115,7 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
     chai.request(app)
     .delete("/api/delete/" + id) 
     .end((err, res) =>{
-      //res.should.have.status(200);
+      res.should.have.status(200);
       done(); 
     });
   });
