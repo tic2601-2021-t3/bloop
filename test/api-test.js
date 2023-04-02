@@ -66,8 +66,8 @@ describe("🧙 🪄 Test Collection: Testing APIs that do not do anything 🪄 �
 });
 
 describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB database 🪄 🧙", () => {
-  var id;
-  it('🧹 🧹 🧹 Test 1: Post data', (done) => {
+  var id; // global variable to store id of the object created using POST. 
+  it('🧹 🧹 🧹 Test 1: Post data', (done) => { // creating Narnia Land Sprinkles
     const data = new Model({
       food: "Narnia Land Sprinkles",
       qty: 1
@@ -85,8 +85,7 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
     });
   });
 
-  it('🧹 🧹 🧹 Test 2: Put data', (done) => {
-    //const id = "6427bf2085a29797850b5480";
+  it('🧹 🧹 🧹 Test 2: Put data', (done) => { // changing Narnia Land Sprinkles to Fairy Land Sprinkles
     const data = new Model({
       food: "Fairy Land Sprinkles",
       qty: 2
@@ -101,12 +100,10 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
     });
   });
 
-  it('🧹 🧹 🧹 Test 3: Get data', (done) => {
-    //const id = "64281e4196f22c655ab6facf";
+  it('🧹 🧹 🧹 Test 3: Get data', (done) => { // getting only Fairy Land Sprinkles
     chai.request(app)
     .get("/api/get/" + id) 
     .end((err, res) =>{
-      //console.log(res);
       res.should.have.status(200);
       res.body.should.have.property('food').eq("Fairy Land Sprinkles");
       res.body.should.have.property('qty').eq(2);
@@ -114,8 +111,7 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
     });
   });
 
-  it('🧹 🧹 🧹 Test 4: Delete data', (done) => {
-    //const id = "6428099fd1948c4b33568328";
+  it('🧹 🧹 🧹 Test 4: Delete data', (done) => { // deleting Fairy Land Sprinkles
     chai.request(app)
     .delete("/api/delete/" + id) 
     .end((err, res) =>{
