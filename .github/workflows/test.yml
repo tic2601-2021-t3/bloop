@@ -26,12 +26,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Start MongoDB
-      uses: supercharge/mongodb-github-action@1.8.0
+      uses: limexpepper/mongodb-github-action@1.8.0
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
-        mongodb-username: supercharge
-        mongodb-password: secret
-        mongodb-db: supercharge
 
     - run: npm install
 
