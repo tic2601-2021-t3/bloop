@@ -4,11 +4,14 @@ const router = express.Router()
 module.exports = router;
 
 const redis = require('redis');
+/*
 const options = {
     allowedHosts: ['localhost', '127.0.0.1'],
     port: 6379,
-};
-const client = redis.createClient(options);
+};*/
+//const client = redis.createClient(options);
+const client = redis.createClient();
+
 
 router.get('/simpleGET', (req, res) => {
     res.status(200).send({message: "You got nothing 🔮"}) //response will send a status 200 and will also send a json object that has a key-value pair
