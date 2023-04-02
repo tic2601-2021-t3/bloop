@@ -1,5 +1,6 @@
 import React, { useEffect, useState }  from 'react'
 import { Breadcrumb, Layout, Menu, theme } from 'antd'
+//import { link } from 'react-router-dom';
 import axios from 'axios'
 const { Header, Content, Footer } = Layout
 const App = () => {
@@ -54,9 +55,7 @@ const [backendData, setBackendData] = useState([{}])
             margin: '16px 0',
           }}
         >
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
+          <Breadcrumb.Item>/getAll</Breadcrumb.Item>
         </Breadcrumb>
         <div
           className="site-layout-content"

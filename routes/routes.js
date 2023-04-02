@@ -3,6 +3,13 @@ const Model = require('../model/model');
 const router = express.Router()
 module.exports = router;
 
+const redis = require('redis');
+const options = {
+    allowedHosts: ['localhost', '127.0.0.1'],
+    port: 6379,
+};
+const client = redis.createClient(options);
+
 router.get('/simpleGET', (req, res) => {
     res.status(200).send({message: "You got nothing 🔮"}) //response will send a status 200 and will also send a json object that has a key-value pair
 })
@@ -44,6 +51,29 @@ Asynchronous operations are often used in programming to improve the performance
 */
 
 router.get('/getAll', async (req, res) => {
+    /*
+    try{
+        // Check if the data is already cached in Redis
+        client.get('getAll', async (err, cachedData) => {
+            if (cachedData) {
+                // If the data is already cached in Redis, return it
+                res.status(200).json(JSON.parse(cachedData));
+            } else {
+                // If the data is not cached in Redis, fetch it from MongoDB
+                const data = await Model.find();
+
+                // Cache the response in Redis for 10 seconds
+                client.setex('getAll', 10, JSON.stringify(data));
+
+                res.status(200).json(data);
+            }
+        });
+    }
+    catch(error){
+        res.status(500).send({message: error.message}) 
+    }*/
+
+    
     try{
         const data = await Model.find();
         res.status(200).json(data)
@@ -51,6 +81,7 @@ router.get('/getAll', async (req, res) => {
     catch(error){
         res.status(500).send({message: error.message}) 
     }
+    
 })
 
 router.get('/get/:id', async (req, res) => { // :id is a URL parameter that is used to capture a dynamic value from the URL.
