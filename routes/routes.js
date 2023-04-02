@@ -38,6 +38,7 @@ router.post('/post', async (req, res) => {
     try {
         const savedData = await data.save();
         res.status(200).json(savedData)
+        done(); 
     }
     catch (error) {
         res.status(400).send({message: error.message}) 
@@ -80,6 +81,7 @@ router.get('/getAll', async (req, res) => {
     try{
         const data = await Model.find();
         res.status(200).json(data)
+        done();
     }
     catch(error){
         res.status(500).send({message: error.message}) 
@@ -91,6 +93,7 @@ router.get('/get/:id', async (req, res) => { // :id is a URL parameter that is u
     try{
         const data = await Model.findById(req.params.id);
         res.status(200).json(data)
+        done();
     }
     catch(error){
         res.status(500).send({message: error.message}) 
@@ -101,6 +104,7 @@ router.delete('/deleteALL', async (req, res) => {
     try {
         const data = await Model.deleteMany();
         res.status(200).send(`All data has been deleted 🔮`) 
+        done();
     }
     catch (error) {
         res.status(500).send({message: error.message}) 
@@ -112,6 +116,7 @@ router.delete('/delete/:id', async (req, res) => {
         const id = req.params.id;
         const data = await Model.findByIdAndDelete(id)
         res.status(200).send(`${data.food} has been deleted 🔮`) // ${data.name} is a template literal that is used to dynamically insert the value of the name property of the data object into the string. Template literals are a new feature introduced in ECMAScript 6 (ES6) that allows you to create strings that can contain placeholders for variables or expressions. Template literals are enclosed in backticks (`) instead of single or double quotes.
+        done();
     }
     catch (error) {
         res.status(500).send({message: error.message}) 
@@ -123,6 +128,7 @@ router.put('/put/:id', async (req, res) => {
         const id = req.params.id;
         const data = await Model.findByIdAndUpdate(id, { "food": req.body.food, "qty": req.body.qty})
         res.status(200).send(`Your entry has been updated 🔮`)
+        done();
     }
     catch (error) {
         //res.send({message: error.message}) 

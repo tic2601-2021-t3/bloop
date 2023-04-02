@@ -81,8 +81,8 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
       res.body.should.have.property('food').eq("Narnia Land Sprinkles");
       res.body.should.have.property('qty').eq(1);
       id = res.body._id;
+      done(); 
     });
-    done(); 
   });
 
   it('🧹 🧹 🧹 Test 2: Put data', (done) => { // changing Narnia Land Sprinkles to Fairy Land Sprinkles
