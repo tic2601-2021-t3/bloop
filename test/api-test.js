@@ -80,13 +80,7 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
       res.body.should.be.a('object');
       res.body.should.have.property('food').eq("Apple Tart");
       res.body.should.have.property('qty').eq(1);
-<<<<<<< HEAD
-      if (res.body.data){
-=======
-      if (res.body.data !== undefined) { // basic error handling
->>>>>>> f1267e9e4ab656d34005a49ee26e3f36e58502a1
-        id = res.body.data._id;
-      }
+      id = res.body._id;
       done(); 
     });
   });
@@ -108,34 +102,20 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
   });
 
   it('🧹 🧹 🧹 Test 3: Get data', (done) => {
-<<<<<<< HEAD
-    const id = "64281e4196f22c655ab6facf";
-=======
-    //const id = "6427dccca37d9bf07fb6f4b9";
->>>>>>> f1267e9e4ab656d34005a49ee26e3f36e58502a1
+    //const id = "64281e4196f22c655ab6facf";
     chai.request(app)
     .get("/api/get/" + id) 
     .end((err, res) =>{
       //console.log(res);
       res.should.have.status(200);
-      //res.body.should.be.a('object');
-<<<<<<< HEAD
-      res.body.should.have.property('food').eq("Strawberry Drink");
-      res.body.should.have.property('qty').eq(5);
-=======
-      res.body.should.have.property('food').eq("Apple Tart");
-      res.body.should.have.property('qty').eq(1);
->>>>>>> f1267e9e4ab656d34005a49ee26e3f36e58502a1
+      res.body.should.have.property('food').eq("Banana cumble pie");
+      res.body.should.have.property('qty').eq(2);
       done(); 
     });
   });
 
   it('🧹 🧹 🧹 Test 4: Delete data', (done) => {
-<<<<<<< HEAD
-    const id = "6428099fd1948c4b33568328";
-=======
-    //const id = "64208da9a33e8fca07677592";
->>>>>>> f1267e9e4ab656d34005a49ee26e3f36e58502a1
+    //const id = "6428099fd1948c4b33568328";
     chai.request(app)
     .delete("/api/delete/" + id) 
     .end((err, res) =>{
