@@ -55,8 +55,11 @@ Asynchronous operations are often used in programming to improve the performance
 */
 
 router.get('/getAll', async (req, res) => {
-    /*
+    
     try{
+        //const data = await Model.find();
+        //res.status(200).json(data)
+        
         // Check if the data is already cached in Redis
         client.get('getAll', async (err, cachedData) => {
             if (cachedData) {
@@ -72,10 +75,11 @@ router.get('/getAll', async (req, res) => {
                 res.status(200).json(data);
             }
         });
+        
     }
     catch(error){
         res.status(500).send({message: error.message}) 
-    }*/
+    }
 
     
     try{
