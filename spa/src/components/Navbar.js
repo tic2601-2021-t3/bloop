@@ -13,7 +13,7 @@ const Navbar = () => {
           <NavLink to="/GetOne" activeStyle>
             GetOne
           </NavLink>
-          <NavLink to="/Two" activeStyle>
+          <NavLink to="/Post" activeStyle>
             Two
           </NavLink>
         </NavMenu>
