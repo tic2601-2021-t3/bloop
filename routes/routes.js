@@ -57,22 +57,15 @@ Asynchronous operations are often used in programming to improve the performance
 router.get('/getAll', async (req, res) => {
     
     try{
-        //const data = await Model.find();
-        //res.status(200).json(data)
-        
         // Check if the data is already cached in Redis
         client.get('getAll', async (err, cachedData) => {
             if (cachedData) {
-                // If the data is already cached in Redis, return it
-                res.status(200).json(JSON.parse(cachedData));
+                res.status(200).json(JSON.parse(cachedData)); // If the data is already cached in Redis, return it
             } else {
-                // If the data is not cached in Redis, fetch it from MongoDB
-                const data = await Model.find();
-
-                // Cache the response in Redis for 10 seconds
-                client.setex('getAll', 10, JSON.stringify(data));
-
+                const data = await Model.find(); // If the data is not cached in Redis, fetch it from MongoDB
+                client.setex('getAll', 10, JSON.stringify(data)); // Cache the response in Redis for 10 seconds
                 res.status(200).json(data);
+                done();
             }
         });
         
@@ -81,7 +74,6 @@ router.get('/getAll', async (req, res) => {
         res.status(500).send({message: error.message}) 
     }
 
-    
     try{
         const data = await Model.find();
         res.status(200).json(data)
@@ -90,7 +82,6 @@ router.get('/getAll', async (req, res) => {
     catch(error){
         res.status(500).send({message: error.message}) 
     }
-    
 })
 
 router.get('/get/:id', async (req, res) => { // :id is a URL parameter that is used to capture a dynamic value from the URL.
