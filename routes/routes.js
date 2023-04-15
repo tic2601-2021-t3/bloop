@@ -145,7 +145,7 @@ router.post('/register', async (req, res) => {
       if (userExists) {
         return res.status(400).json({ error: 'User already exists' });
       }
-  
+
       // Hash the password using bcrypt
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
@@ -155,6 +155,7 @@ router.post('/register', async (req, res) => {
         email: req.body.email,
         password: hashedPassword
       });
+
       const savedUser = await user.save();
   
       res.status(201).json({ message: 'User created successfully' });
@@ -169,27 +170,25 @@ router.post('/login', async (req, res) => {
       // Find user with given email
       const user = await User.findOne({ email: req.body.email });
       if (!user) {
-        return res.status(400).json({ error: 'Invalid email or password' });
-      }
-  
+        return res.status(400).json({ error: 'Invalid email' });
+      }  
       // Check if password is correct
       const passwordMatch = await bcrypt.compare(req.body.password, user.password);
-      if (!passwordMatch) {
-        return res.status(400).json({ error: 'Invalid email or password' });
+      if (passwordMatch) {
+        // Create and sign JWT token
+        const token = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+        res.status(200).json({ message: 'Login successful', token });
+      } else {
+        return res.status(400).json({ error: 'Invalid password' });
       }
-  
-      // Create and sign JWT token
-      const token = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
-  
-      res.status(200).json({ message: 'Login successful', token });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 });
 
 // Protected route that requires authentication
 router.get('/protected', authenticateToken, (req, res) => {
-    res.send('This is a protected route');
+    res.send('This is a protected route 🔮 If you are seeing it, it means you have access to this route');
 });
 // #endregion
 
