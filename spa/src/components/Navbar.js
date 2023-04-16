@@ -16,6 +16,9 @@ const Navbar = () => {
           <NavLink to="/Post" activeStyle>
             Two
           </NavLink>
+          <NavLink to="/login" activeStyle>
+            Login
+          </NavLink>
         </NavMenu>
       </Nav>
     </>

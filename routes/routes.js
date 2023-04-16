@@ -203,9 +203,9 @@ router.get('/protected', authenticateToken, async (req, res) => {
     const user = await User.findById(userId);
     const userRole = user.roles; // retrieve user role 
     if (userRole.includes('admin')) { 
-        res.status(200).send('Welcome Admin! 🔮 If you are seeing it, it means you have access to this route'); // Return a 200 OK response if the user is an admin
+        res.status(200).json('Welcome Admin! 🔮 If you are seeing it, it means you have access to this route'); // Return a 200 OK response if the user is an admin
     } else {
-        return res.status(403).json({ error: 'Opps! Only admins can access this route 🔮' }); // Return a 403 Forbidden error if the user is not an admin
+        return res.status(403).json('Opps! Only admins can access this route 🔮'); // Return a 403 Forbidden error if the user is not an admin
     }
   });
 // #endregion

@@ -4,10 +4,12 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import GetAll from './pages/GetAll.js';
 import One from './pages/GetOne.js';
 import Two from './pages/Post.js';
+import Protected from './pages/protected.js';
 import LoginButton from "./components/LoginButton";
 import LogoutButton from "./components/LogoutButton";
 import Profile from "./components/Profile";
 import { useAuth0 } from "@auth0/auth0-react";
+import Login from './pages/login.js';
 const { Header, Content, Footer } = Layout
 
 const App = () => {
@@ -27,6 +29,8 @@ const App = () => {
           <Route path='/GetAll'element={<GetAll/>} />
           <Route path='/GetOne'element={<One/>} />
           <Route path='/Post'element={<Two/>} />
+          <Route path="/login"element={<Login />} />
+          <Route path='/protected'element={<Protected />} />
         </Routes>
         <main className="column">
         <h1>Auth0 Login</h1>
