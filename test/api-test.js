@@ -6,7 +6,7 @@ const mocha = require('mocha');
 var describe = mocha.describe
 var it = mocha.it // alternatively, replace lines 7 to 9 with const { describe, it } = require('mocha');
 const app = require('../index.js'); // const router = require('../routes/routes.js');
-const Model = require('../model/model.js');
+const { Data } = require('../model/model'); // Authentication and Authorisation implementation
 
 chai.use(chaiHttp);
 
@@ -68,7 +68,7 @@ describe("🧙 🪄 Test Collection: Testing APIs that do not do anything 🪄 �
 describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB database 🪄 🧙", () => {
   var id; // global variable to store id of the object created using POST. 
   it('🧹 🧹 🧹 Test 1: Post data', (done) => { // creating Narnia Land Sprinkles
-    const data = new Model({
+    const data = new Data({
       food: "Narnia Land Sprinkles",
       qty: 1
     })
@@ -86,7 +86,7 @@ describe("🧙 🪄 Test Collection: Testing APIs that interact with the MongoDB
   });
 
   it('🧹 🧹 🧹 Test 2: Put data', (done) => { // changing Narnia Land Sprinkles to Fairy Land Sprinkles
-    const data = new Model({
+    const data = new Data({
       food: "Fairy Land Sprinkles",
       qty: 2
     })
