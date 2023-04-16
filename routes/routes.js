@@ -153,7 +153,8 @@ router.post('/register', async (req, res) => {
       // Create new user in database
       const user = new User({
         email: req.body.email,
-        password: hashedPassword
+        password: hashedPassword,
+        roles: req.body.roles
       });
 
       const savedUser = await user.save();
@@ -170,7 +171,7 @@ router.post('/login', async (req, res) => {
       // Find user with given email
       const user = await User.findOne({ email: req.body.email });
       if (!user) {
-        return res.status(400).json({ error: 'Invalid email' });
+        return res.status(401).json({ error: 'Invalid email' });
       }  
       // Check if password is correct
       const passwordMatch = await bcrypt.compare(req.body.password, user.password);
@@ -179,7 +180,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
         res.status(200).json({ message: 'Login successful', token });
       } else {
-        return res.status(400).json({ error: 'Invalid password' });
+        return res.status(401).json({ error: 'Invalid password' });
       }
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -187,9 +188,33 @@ router.post('/login', async (req, res) => {
 });
 
 // Protected route that requires authentication
+/*
 router.get('/protected', authenticateToken, (req, res) => {
     res.send('This is a protected route 🔮 If you are seeing it, it means you have access to this route');
 });
+*/
+router.get('/protected', authenticateToken, async (req, res) => {
+    // Extract token from request header
+    const token = req.headers.authorization.split(' ')[1]; 
+    
+    // check if a token was provided
+    if (!token) { 
+        return res.status(401).json({ error: 'No token provided 🔮' });
+    }
+
+    // if token was provided, verify and decode token
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET); 
+    
+    // Once token is decoded, extract userID and retrieve user from mongoDB
+    const userId = decodedToken.userId;
+    const user = await User.findById(userId);
+    const userRole = user.roles; // retrieve user role 
+    if (userRole.includes('admin')) { 
+        res.status(200).send('Welcome Admin! 🔮 If you are seeing it, it means you have access to this route'); // Return a 200 OK response if the user is an admin
+    } else {
+        return res.status(403).json({ error: 'Opps! Only admins can access this route 🔮' }); // Return a 403 Forbidden error if the user is not an admin
+    }
+  });
 // #endregion
 
 module.exports = router;
