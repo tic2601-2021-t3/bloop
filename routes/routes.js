@@ -137,7 +137,6 @@ router.put('/put/:id', async (req, res) => {
 // #endregion
 
 // #region Authentication and Authorisation Endpoints
-// User registration endpoint
 router.post('/register', async (req, res) => {
     try {
       // Check if user with given email already exists
@@ -164,8 +163,8 @@ router.post('/register', async (req, res) => {
       res.status(500).json({ error: error.message });
     }
 });
-  
-// User login endpoint
+
+// Login route that requires authentication
 router.post('/login', async (req, res) => {
     try {
       // Find user with given email
@@ -187,12 +186,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// Protected route that requires authentication
-/*
-router.get('/protected', authenticateToken, (req, res) => {
-    res.send('This is a protected route 🔮 If you are seeing it, it means you have access to this route');
-});
-*/
+// Protected route that requires authorisation
 router.get('/protected', authenticateToken, async (req, res) => {
     // Extract token from request header
     const token = req.headers.authorization.split(' ')[1]; 
@@ -249,5 +243,9 @@ module.exports = router;
  * and create a new user in the database. 
  * We will then generate a JWT token using jwt.sign() 
  * and return it in the response.
+ * 
+ * -- /Protected endpoint-- 
+ * re: Postman default 401 message
+ * If a token is not provided, postman would return 401 and display "Unauthorised" in the response body by default
  * */ 
 
