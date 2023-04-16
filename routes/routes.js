@@ -6,8 +6,8 @@ const client = redis.createClient(); // redis implementation
 const bcrypt = require('bcrypt'); // Authentication and Authorisation implementation
 const jwt = require('jsonwebtoken');
 const { Data, User } = require('../model/model'); // Authentication and Authorisation implementation
-const { generateAccessToken, authenticateToken } = require('../middleware/auth'); // Require the authentication middleware
-
+//const { generateAccessToken, authenticateToken } = require('../middleware/auth'); // Require the authentication middleware
+const { authenticateToken } = require('../middleware/auth'); // Require the authentication middleware
 
 // #region Simple Endpoints
 router.get('/simpleGET', (req, res) => {
